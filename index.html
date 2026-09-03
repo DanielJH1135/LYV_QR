@@ -1,11 +1,12 @@
 <!doctype html>
+<!-- LYV_QR_BUILD: logo-user-copy-formspree-v5 -->
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#919d9f" />
-  <title>LYV Sciences | 이정현 Deputy General Manager</title>
-  <meta name="description" content="LYV Sciences 피부과·성형외과 제품 포트폴리오와 담당자 연결 페이지" />
+  <title>LYV Sciences | 이정현 차장 / Deputy General Manager</title>
+  <meta name="description" content="LYV Sciences 원장님을 위한 제품 포트폴리오와 담당자 연결 페이지" />
   <style>
     :root {
       --ink: #181818;
@@ -39,12 +40,8 @@
       border-bottom: 1px solid rgba(223,220,220,.85);
     }
     .nav { min-height: 64px; display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; letter-spacing: -.03em; }
-    .brand-mark {
-      width: 31px; height: 31px; display: grid; place-items: center;
-      border-radius: 8px; color: white; background: #111; font-size: 12px;
-      box-shadow: 0 8px 20px rgba(20,20,20,.14);
-    }
+    .brand { display: flex; align-items: center; }
+    .brand-logo { width: 52px; height: 52px; object-fit: contain; display: block; }
     .nav-link { color: var(--muted); font-size: 14px; font-weight: 700; }
     .hero { padding: 42px 0 30px; }
     .hero-card {
@@ -56,6 +53,10 @@
       background: var(--blush); transform: rotate(15deg); border-radius: 40px;
     }
     .hero-card > * { position: relative; z-index: 2; }
+    .hero-logo {
+      position: absolute !important; z-index: 1 !important; width: 128px; height: 128px; right: 5px; top: 5px;
+      object-fit: contain; opacity: .14; mix-blend-mode: multiply; pointer-events: none;
+    }
     .eyebrow { margin: 0 0 12px; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
     h1 { margin: 0; font-size: clamp(30px, 7vw, 54px); line-height: 1.08; letter-spacing: -.045em; }
     .hero-copy { max-width: 620px; margin: 14px 0 22px; color: #cddadd; font-size: 16px; }
@@ -164,6 +165,7 @@
       .contact-grid .button:last-child { grid-column: auto; }
       .modal { align-items: center; justify-content: center; padding: 24px; }
       .sheet { width: min(100%, 560px); border-radius: 26px; }
+      .hero-logo { width: 190px; height: 190px; right: 28px; top: 22px; opacity: .17; }
     }
     @media (min-width: 1040px) {
       .main-grid { grid-template-columns: repeat(4, 1fr); }
@@ -174,7 +176,7 @@
 <body>
   <header class="topbar">
     <div class="shell nav">
-      <a class="brand" href="#top"><span class="brand-mark">LYV</span>LYV Sciences</a>
+      <a class="brand" href="#top" aria-label="LYV Sciences 홈"><img class="brand-logo" src="lyv-logo.png" alt="LYV Sciences" /></a>
       <a class="nav-link" href="#contact">담당자 연결</a>
     </div>
   </header>
@@ -183,8 +185,9 @@
     <section class="hero">
       <div class="shell">
         <div class="hero-card">
+          <img class="hero-logo" src="lyv-logo.png" alt="" aria-hidden="true" />
           <p class="eyebrow">Aesthetic Medical Portfolio</p>
-          <h1>피부과·성형외과를 위한<br />핵심 제품 포트폴리오</h1>
+          <h1>원장님을 위한<br />핵심 제품 포트폴리오</h1>
           <p class="hero-copy">제품 핵심 정보를 간편하게 확인하고, 필요한 자료와 상담을 담당자에게 바로 요청하세요.</p>
           <div class="identity"><span>이정현 차장 · Deputy General Manager</span><span>Daegu / Gyeongbuk</span></div>
           <div class="actions">
@@ -210,7 +213,7 @@
           </article>
           <article class="product-card">
             <div class="visual portrait"><img src="yvoire.png" alt="이브아르 클래식, 볼륨, 컨투어 제품" /><span class="category">HA FILLER</span></div>
-            <div class="product-body"><h3 class="product-name">YVOIRE</h3><p class="product-type">HA Dermal Filler</p><p class="product-copy">Classic, Volume, Contour로 구성된 이브아르 HA 필러 라인업입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE">제품소개</button><button class="card-button filled" data-contact="YVOIRE 자료">자료 요청</button><button class="card-button sample" data-contact="YVOIRE 샘플 신청">샘플 신청</button></div></div>
+            <div class="product-body"><h3 class="product-name">YVOIRE</h3><p class="product-type">HA Dermal Filler</p><p class="product-copy">Classic, Volume, Contour로 구성된 대한민국 최초의 HA필러, 이브아르 HA 필러 라인업입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE">제품소개</button><button class="card-button filled" data-contact="YVOIRE 자료">자료 요청</button><button class="card-button sample" data-contact="YVOIRE 샘플 신청">샘플 신청</button></div></div>
           </article>
           <article class="product-card">
             <div class="visual"><img src="y-solution.png" alt="이브아르 와이솔루션 360, 540, 720 제품" /><span class="category">PREMIUM HA FILLER</span></div>
