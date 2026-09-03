@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#919d9f" />
-  <title>LYV Sciences | 이재현 Account Manager</title>
+  <title>LYV Sciences | 이정현 Deputy General Manager</title>
   <meta name="description" content="LYV Sciences 피부과·성형외과 제품 포트폴리오와 담당자 연결 페이지" />
   <style>
     :root {
@@ -186,7 +186,7 @@
           <p class="eyebrow">Aesthetic Medical Portfolio</p>
           <h1>피부과·성형외과를 위한<br />핵심 제품 포트폴리오</h1>
           <p class="hero-copy">제품 핵심 정보를 간편하게 확인하고, 필요한 자료와 상담을 담당자에게 바로 요청하세요.</p>
-          <div class="identity"><span>이재현 · Account Manager</span><span>Daegu / Gyeongbuk</span></div>
+          <div class="identity"><span>이정현 차장 · Deputy General Manager</span><span>Daegu / Gyeongbuk</span></div>
           <div class="actions">
             <button class="button primary" data-contact="전화">전화</button>
             <button class="button secondary" data-contact="문자">문자</button>
@@ -238,7 +238,7 @@
 
     <section class="shell" id="contact">
       <div class="contact">
-        <p class="contact-label">YOUR ACCOUNT MANAGER</p><h2>이재현 · Account Manager</h2>
+        <p class="contact-label">YOUR ACCOUNT MANAGER</p><h2>이정현 차장 · Deputy General Manager</h2>
         <p>제품 자료, 샘플 및 미팅 문의를 남겨주시면 빠르게 안내드리겠습니다.</p>
         <div class="contact-grid"><button class="button primary" data-contact="전화">전화하기</button><button class="button secondary" data-contact="문자">문자 보내기</button><button class="button secondary" data-contact="명함">연락처 저장</button><button class="button sample" data-contact="샘플 신청">샘플 신청</button></div>
       </div>
@@ -287,10 +287,31 @@
       if (product) productField.value = product;
       sampleModal.classList.add('open'); document.body.style.overflow = 'hidden';
     }
+    function saveContact() {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:이;정현;;;',
+        'FN:이정현 차장',
+        'ORG:LYV Sciences',
+        'TITLE:Deputy General Manager',
+        'TEL;TYPE=CELL:01080400296',
+        'EMAIL;TYPE=WORK:daniel-jhlee@lyvsciences.com',
+        'END:VCARD'
+      ].join('\r\n');
+      const blob = new Blob([vcard], { type:'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = '이정현_LYV_Sciences.vcf'; document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
     document.querySelectorAll('[data-contact]').forEach(button => button.addEventListener('click', () => {
       const action = button.dataset.contact || '';
       if (action.includes('샘플 신청')) { openSample(action.replace(' 샘플 신청','')); return; }
-      notify('연락처를 받으면 ' + action + ' 기능을 바로 연결할게요.');
+      if (action === '전화') { window.location.href = 'tel:01080400296'; return; }
+      if (action === '문자') { window.location.href = 'sms:01080400296'; return; }
+      if (action === '저장' || action === '명함') { saveContact(); return; }
+      notify(action + ' 기능을 준비 중입니다.');
     }));
     function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
     document.querySelector('.close').addEventListener('click', closeModal);
@@ -305,7 +326,7 @@
       const body = Object.fromEntries(new FormData(sampleForm).entries());
       body.consent = body.consent === 'on';
       try {
-        const response = await fetch('/api/sample-request', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        const response = await fetch('https://formspree.io/f/mppzreqj', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(body) });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || '접수 중 오류가 발생했습니다.');
         sampleForm.style.display = 'none'; successBox.classList.add('show');
