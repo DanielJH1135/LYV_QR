@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#919d9f" />
+  <title>LYV Sciences | 이재현 Account Manager</title>
+  <meta name="description" content="LYV Sciences 피부과·성형외과 제품 포트폴리오와 담당자 연결 페이지" />
+  <style>
+    :root {
+      --ink: #181818;
+      --muted: #6f7374;
+      --paper: #f5f4f4;
+      --white: #ffffff;
+      --line: #dfdcdc;
+      --grey: #919d9f;
+      --grey-deep: #657274;
+      --blush: #c9afb3;
+      --blush-deep: #a77f86;
+      --shadow: 0 18px 50px rgba(35,35,35,.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .shell { width: min(100%, 1180px); margin: 0 auto; padding: 0 18px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 30;
+      background: rgba(255,255,255,.90); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(223,220,220,.85);
+    }
+    .nav { min-height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; letter-spacing: -.03em; }
+    .brand-mark {
+      width: 31px; height: 31px; display: grid; place-items: center;
+      border-radius: 8px; color: white; background: #111; font-size: 12px;
+      box-shadow: 0 8px 20px rgba(20,20,20,.14);
+    }
+    .nav-link { color: var(--muted); font-size: 14px; font-weight: 700; }
+    .hero { padding: 42px 0 30px; }
+    .hero-card {
+      position: relative; overflow: hidden; border-radius: 28px; padding: 30px 24px;
+      background: var(--grey); color: white; box-shadow: var(--shadow);
+    }
+    .hero-card::after {
+      content: ""; position: absolute; width: 46%; height: 150%; right: -15%; top: -25%;
+      background: var(--blush); transform: rotate(15deg); border-radius: 40px;
+    }
+    .hero-card > * { position: relative; z-index: 2; }
+    .eyebrow { margin: 0 0 12px; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(30px, 7vw, 54px); line-height: 1.08; letter-spacing: -.045em; }
+    .hero-copy { max-width: 620px; margin: 14px 0 22px; color: #cddadd; font-size: 16px; }
+    .identity { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .identity span { padding: 7px 10px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #e9f2f2; font-size: 13px; }
+    .actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; position: relative; z-index: 2; }
+    .button {
+      min-height: 48px; border: 0; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 7px;
+      cursor: pointer; font-weight: 800; color: inherit;
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.42);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 8px 22px rgba(35,35,35,.08);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .button:active { transform: scale(.98); }
+    .button:hover { background: rgba(255,255,255,.27); border-color: rgba(255,255,255,.62); }
+    .button.primary, .button.sample, .button.secondary { color: white; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.42); }
+    .section { padding: 34px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 17px; }
+    .section h2 { margin: 0; font-size: clamp(23px, 5vw, 32px); letter-spacing: -.035em; }
+    .section-sub { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+    .count { color: var(--blush-deep); font-size: 13px; font-weight: 850; }
+    .main-grid { display: grid; gap: 14px; }
+    .product-card {
+      overflow: hidden; background: var(--white); border: 1px solid var(--line); border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(16,44,58,.055);
+    }
+    .visual {
+      position: relative; aspect-ratio: 16/8; padding: 18px; overflow: hidden;
+      background: #fff;
+    }
+    .visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+    .visual.portrait img { object-fit: cover; object-position: center 64%; }
+    .category { position: relative; z-index: 2; display: inline-flex; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,.88); box-shadow: 0 4px 16px rgba(16,44,58,.08); font-size: 12px; font-weight: 850; }
+    .product-body { padding: 20px; }
+    .product-name { margin: 0; font-size: 25px; line-height: 1.1; letter-spacing: -.035em; }
+    .product-type { margin: 5px 0 13px; color: var(--blush-deep); font-size: 13px; font-weight: 800; }
+    .product-copy { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .card-button { min-height: 44px; border-radius: 12px; border: 1px solid rgba(145,157,159,.30); background: rgba(255,255,255,.56); color: var(--ink); font-weight: 800; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.86), 0 7px 18px rgba(35,35,35,.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: .18s ease; }
+    .card-button:hover { background: rgba(225,229,229,.70); border-color: rgba(145,157,159,.48); }
+    .card-button.filled { color: var(--ink); background: rgba(255,255,255,.56); border-color: rgba(145,157,159,.30); }
+    .card-button.sample { grid-column: 1 / -1; color: var(--ink); background: rgba(255,255,255,.56); border-color: rgba(145,157,159,.30); }
+    .sub-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .mini-card { min-height: 146px; padding: 17px; border: 1px solid var(--line); border-radius: 18px; background: white; display: flex; flex-direction: column; }
+    .mini-card small { color: var(--blush-deep); font-size: 11px; font-weight: 850; letter-spacing: .06em; }
+    .mini-card h3 { margin: 7px 0 3px; font-size: 17px; line-height: 1.2; letter-spacing: -.02em; }
+    .mini-card p { margin: 0 0 13px; color: var(--muted); font-size: 12px; }
+    .mini-card button { margin-top: auto; padding: 0; border: 0; background: none; text-align: left; color: var(--ink); font-size: 13px; font-weight: 850; cursor: pointer; }
+    .contact { margin: 26px 0 94px; padding: 24px; border-radius: 24px; color: white; background: linear-gradient(135deg, #7f8b8d 0 62%, #c9afb3 62%); }
+    .contact-label { margin: 0 0 6px; color: white; font-size: 12px; font-weight: 850; letter-spacing: .12em; }
+    .contact h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
+    .contact p { margin: 6px 0 18px; color: #c8d7da; font-size: 14px; }
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .contact-grid .button:last-child { grid-column: 1 / -1; }
+    .bottom-bar {
+      position: fixed; z-index: 40; left: 50%; bottom: 12px; transform: translateX(-50%);
+      width: min(calc(100% - 24px), 480px); padding: 8px; display: grid; grid-template-columns: repeat(3,1fr); gap: 6px;
+      border: 1px solid rgba(255,255,255,.65); border-radius: 18px; background: rgba(24,24,24,.94); box-shadow: 0 16px 40px rgba(20,20,20,.26); backdrop-filter: blur(16px);
+    }
+    .bottom-bar button { height: 44px; border: 1px solid rgba(255,255,255,.20); border-radius: 12px; color: white; background: rgba(255,255,255,.09); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 13px; font-weight: 800; cursor: pointer; }
+    .bottom-bar .accent { color: white; background: rgba(255,255,255,.09); }
+    .modal { position: fixed; inset: 0; z-index: 60; display: none; align-items: end; background: rgba(5,22,29,.48); }
+    .modal.open { display: flex; }
+    .sheet { width: 100%; max-height: 84vh; overflow: auto; padding: 10px 22px 30px; border-radius: 26px 26px 0 0; background: white; animation: up .22s ease-out; }
+    @keyframes up { from { transform: translateY(30px); opacity: .4; } }
+    .handle { width: 42px; height: 5px; margin: 2px auto 20px; border-radius: 99px; background: #d7dfdf; }
+    .sheet-top { display: flex; justify-content: space-between; gap: 16px; }
+    .sheet h3 { margin: 0; font-size: 28px; letter-spacing: -.04em; }
+    .close { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--paper); cursor: pointer; }
+    .sheet-type { color: var(--blush-deep); font-size: 13px; font-weight: 800; }
+    .detail-box { margin: 22px 0; padding: 18px; border-radius: 16px; background: var(--paper); color: var(--muted); font-size: 14px; }
+    .detail-box strong { display: block; margin-bottom: 7px; color: var(--ink); }
+    .toast { position: fixed; z-index: 80; left: 50%; bottom: 86px; transform: translate(-50%, 12px); opacity: 0; pointer-events: none; width: max-content; max-width: calc(100% - 34px); padding: 11px 15px; border-radius: 12px; color: white; background: #092630; font-size: 13px; transition: .2s ease; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .form-sheet { max-height: 92vh; }
+    .sample-form { display: grid; gap: 14px; margin-top: 18px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: 14px; font-weight: 800; }
+    .required { color: #9d6770; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid rgba(145,157,159,.34); border-radius: 13px;
+      color: var(--ink); background: rgba(255,255,255,.66); box-shadow: inset 0 1px 0 rgba(255,255,255,.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font: inherit; outline: none;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--grey-deep); box-shadow: 0 0 0 3px rgba(145,157,159,.16); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .consent { display: flex; align-items: flex-start; gap: 9px; padding: 12px 0; color: var(--muted); font-size: 13px; }
+    .consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--grey-deep); }
+    .submit-glass { color: var(--ink) !important; border-color: rgba(145,157,159,.38) !important; background: rgba(210,216,216,.52) !important; }
+    .form-status { min-height: 22px; margin: 0; color: #8d555f; font-size: 13px; font-weight: 700; }
+    .success-box { display: none; padding: 34px 12px 18px; text-align: center; }
+    .success-box.show { display: block; }
+    .success-icon { width: 54px; height: 54px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 50%; background: rgba(145,157,159,.18); font-size: 24px; }
+    .honeypot { position: absolute !important; left: -9999px !important; opacity: 0 !important; pointer-events: none !important; }
+    @media (min-width: 720px) {
+      .shell { padding: 0 28px; }
+      .hero { padding-top: 62px; }
+      .hero-card { padding: 50px; }
+      .main-grid { grid-template-columns: repeat(2, 1fr); }
+      .visual { aspect-ratio: 16/10; }
+      .sub-grid { grid-template-columns: repeat(4, 1fr); }
+      .contact { padding: 38px; }
+      .contact-grid { grid-template-columns: repeat(4, 1fr); }
+      .contact-grid .button:last-child { grid-column: auto; }
+      .modal { align-items: center; justify-content: center; padding: 24px; }
+      .sheet { width: min(100%, 560px); border-radius: 26px; }
+    }
+    @media (min-width: 1040px) {
+      .main-grid { grid-template-columns: repeat(4, 1fr); }
+      .product-name { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#top"><span class="brand-mark">LYV</span>LYV Sciences</a>
+      <a class="nav-link" href="#contact">담당자 연결</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <p class="eyebrow">Aesthetic Medical Portfolio</p>
+          <h1>피부과·성형외과를 위한<br />핵심 제품 포트폴리오</h1>
+          <p class="hero-copy">제품 핵심 정보를 간편하게 확인하고, 필요한 자료와 상담을 담당자에게 바로 요청하세요.</p>
+          <div class="identity"><span>이재현 · Account Manager</span><span>Daegu / Gyeongbuk</span></div>
+          <div class="actions">
+            <button class="button primary" data-contact="전화">전화</button>
+            <button class="button secondary" data-contact="문자">문자</button>
+            <button class="button secondary" data-contact="저장">연락처 저장</button>
+            <button class="button sample" data-contact="샘플 신청">샘플 신청</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="portfolio">
+      <div class="shell">
+        <div class="section-head">
+          <div><h2>Main Portfolio</h2><p class="section-sub">가장 먼저 제안드리는 핵심 3개 제품군</p></div>
+          <span class="count">04 PRODUCTS</span>
+        </div>
+        <div class="main-grid">
+          <article class="product-card">
+            <div class="visual"><img src="ultracol.png" alt="울트라콜 200 및 울트라콜 100 바이알" /><span class="category">BIOSTIMULATOR</span></div>
+            <div class="product-body"><h3 class="product-name">ULTRACOL</h3><p class="product-type">PDO Collagen Stimulator</p><p class="product-copy">PDO 기반 콜라겐 스티뮬레이터. 제품 개요와 적용 정보를 한눈에 확인하세요.</p><div class="card-actions"><button class="card-button" data-product="ULTRACOL">제품소개</button><button class="card-button filled" data-contact="ULTRACOL 자료">자료 요청</button><button class="card-button sample" data-contact="ULTRACOL 샘플 신청">샘플 신청</button></div></div>
+          </article>
+          <article class="product-card">
+            <div class="visual portrait"><img src="yvoire.png" alt="이브아르 클래식, 볼륨, 컨투어 제품" /><span class="category">HA FILLER</span></div>
+            <div class="product-body"><h3 class="product-name">YVOIRE</h3><p class="product-type">HA Dermal Filler</p><p class="product-copy">Classic, Volume, Contour로 구성된 이브아르 HA 필러 라인업입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE">제품소개</button><button class="card-button filled" data-contact="YVOIRE 자료">자료 요청</button><button class="card-button sample" data-contact="YVOIRE 샘플 신청">샘플 신청</button></div></div>
+          </article>
+          <article class="product-card">
+            <div class="visual"><img src="y-solution.png" alt="이브아르 와이솔루션 360, 540, 720 제품" /><span class="category">PREMIUM HA FILLER</span></div>
+            <div class="product-body"><h3 class="product-name">YVOIRE<br />Y-SOLUTION</h3><p class="product-type">Premium HA Dermal Filler</p><p class="product-copy">360, 540, 720으로 구성된 이브아르 와이솔루션 라인업입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE Y-SOLUTION">제품소개</button><button class="card-button filled" data-contact="Y-SOLUTION 자료">자료 요청</button><button class="card-button sample" data-contact="Y-SOLUTION 샘플 신청">샘플 신청</button></div></div>
+          </article>
+          <article class="product-card">
+            <div class="visual"><img src="bellacholine.png" alt="벨라콜린 주 제품" /><span class="category">DEOXYCHOLIC ACID</span></div>
+            <div class="product-body"><h3 class="product-name">BELLACHOLINE</h3><p class="product-type">Submental Fat Solution</p><p class="product-copy">데옥시콜산 기반 턱밑지방 제품. 제품 특성과 자료를 간편하게 확인하세요.</p><div class="card-actions"><button class="card-button" data-product="BELLACHOLINE">제품소개</button><button class="card-button filled" data-contact="BELLACHOLINE 자료">자료 요청</button><button class="card-button sample" data-contact="BELLACHOLINE 샘플 신청">샘플 신청</button></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><h2>More Solutions</h2><p class="section-sub">시술과 진료 현장을 위한 추가 라인업</p></div><span class="count">04 PRODUCTS</span></div>
+        <div class="sub-grid">
+          <article class="mini-card"><small>WOUND CARE</small><h3>KIOMER</h3><p>창상 관리 제품</p><button data-product="KIOMER">간단히 보기 →</button></article>
+          <article class="mini-card"><small>SKIN SOLUTION</small><h3>TRIDERM</h3><p>피부 시술 솔루션</p><button data-product="TRIDERM">간단히 보기 →</button></article>
+          <article class="mini-card"><small>DEVICE</small><h3>AIRSHINE</h3><p>에스테틱 디바이스</p><button data-product="AIRSHINE">간단히 보기 →</button></article>
+          <article class="mini-card"><small>LIFTING</small><h3>PDO THREAD</h3><p>PDO 리프팅실</p><button data-product="PDO LIFTING THREAD">간단히 보기 →</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="contact">
+      <div class="contact">
+        <p class="contact-label">YOUR ACCOUNT MANAGER</p><h2>이재현 · Account Manager</h2>
+        <p>제품 자료, 샘플 및 미팅 문의를 남겨주시면 빠르게 안내드리겠습니다.</p>
+        <div class="contact-grid"><button class="button primary" data-contact="전화">전화하기</button><button class="button secondary" data-contact="문자">문자 보내기</button><button class="button secondary" data-contact="명함">연락처 저장</button><button class="button sample" data-contact="샘플 신청">샘플 신청</button></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-bar" aria-label="빠른 연락"><button data-contact="전화">전화</button><button data-contact="자료 요청">자료 요청</button><button class="accent" data-contact="샘플 신청">샘플 신청</button></nav>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="sheet"><div class="handle"></div><div class="sheet-top"><div><h3 id="modal-title">제품명</h3><div class="sheet-type">제품 상세 정보</div></div><button class="close" aria-label="닫기">✕</button></div><div class="detail-box"><strong>현재는 구조 확인용 임시 페이지입니다.</strong>실제 제품 이미지, 핵심 특징, 규격, 허가 범위 및 브로셔 자료를 전달받으면 이 영역에 제품별 내용으로 교체됩니다.</div><button class="button primary" style="width:100%" data-contact="상세 자료">이 제품 자료 요청하기</button></div>
+  </div>
+  <div class="modal" id="sample-modal" role="dialog" aria-modal="true" aria-labelledby="sample-title">
+    <div class="sheet form-sheet">
+      <div class="handle"></div>
+      <div class="sheet-top"><div><h3 id="sample-title">샘플 신청</h3><div class="sheet-type">확인 후 담당자가 연락드리겠습니다.</div></div><button class="close sample-close" type="button" aria-label="닫기">✕</button></div>
+      <form class="sample-form" id="sample-form">
+        <div class="field"><label for="institutionName">병·의원명 <span class="required">*</span></label><input id="institutionName" name="institutionName" autocomplete="organization" required maxlength="80" placeholder="병·의원명을 입력해주세요" /></div>
+        <div class="field"><label for="facilityCode">요양기관기호 <span class="required">*</span></label><input id="facilityCode" name="facilityCode" inputmode="numeric" required maxlength="20" placeholder="요양기관기호를 입력해주세요" /></div>
+        <div class="field"><label for="product">신청 제품 <span class="required">*</span></label><select id="product" name="product" required><option value="">제품 선택</option><option>ULTRACOL</option><option>YVOIRE</option><option>YVOIRE Y-SOLUTION</option><option>BELLACHOLINE</option><option>KIOMER</option><option>TRIDERM</option><option>AIRSHINE</option><option>PDO LIFTING THREAD</option></select></div>
+        <div class="field-row"><div class="field"><label for="contactName">담당자명 <span class="required">*</span></label><input id="contactName" name="contactName" autocomplete="name" required maxlength="40" placeholder="성함" /></div><div class="field"><label for="phone">연락처 <span class="required">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="010-0000-0000" /></div></div>
+        <div class="field"><label for="message">요청사항</label><textarea id="message" name="message" maxlength="500" placeholder="필요한 수량이나 문의사항이 있다면 적어주세요."></textarea></div>
+        <div class="honeypot" aria-hidden="true"><label for="website">웹사이트</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <label class="consent"><input type="checkbox" name="consent" required /><span>샘플 신청 확인 및 연락을 위한 개인정보 수집·이용에 동의합니다. <span class="required">*</span></span></label>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <button class="button submit-glass" id="submit-button" type="submit">샘플 신청 보내기</button>
+      </form>
+      <div class="success-box" id="success-box"><div class="success-icon">✓</div><h3>신청이 접수되었습니다.</h3><p>확인 후 입력하신 연락처로 안내드리겠습니다.</p><button class="card-button sample-close" type="button" style="width:100%;margin-top:12px">닫기</button></div>
+    </div>
+  </div>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script>
+    const modal = document.getElementById('modal');
+    const title = document.getElementById('modal-title');
+    const toast = document.querySelector('.toast');
+    const sampleModal = document.getElementById('sample-modal');
+    const sampleForm = document.getElementById('sample-form');
+    const productField = document.getElementById('product');
+    const formStatus = document.getElementById('form-status');
+    const submitButton = document.getElementById('submit-button');
+    const successBox = document.getElementById('success-box');
+    let timer;
+    function notify(message) { toast.textContent = message; toast.classList.add('show'); clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 2400); }
+    document.querySelectorAll('[data-product]').forEach(button => button.addEventListener('click', () => { title.textContent = button.dataset.product; modal.classList.add('open'); document.body.style.overflow = 'hidden'; }));
+    function openSample(product) {
+      sampleForm.reset(); successBox.classList.remove('show'); sampleForm.style.display = 'grid'; formStatus.textContent = '';
+      if (product) productField.value = product;
+      sampleModal.classList.add('open'); document.body.style.overflow = 'hidden';
+    }
+    document.querySelectorAll('[data-contact]').forEach(button => button.addEventListener('click', () => {
+      const action = button.dataset.contact || '';
+      if (action.includes('샘플 신청')) { openSample(action.replace(' 샘플 신청','')); return; }
+      notify('연락처를 받으면 ' + action + ' 기능을 바로 연결할게요.');
+    }));
+    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    document.querySelector('.close').addEventListener('click', closeModal);
+    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
+    function closeSample() { sampleModal.classList.remove('open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('.sample-close').forEach(button => button.addEventListener('click', closeSample));
+    sampleModal.addEventListener('click', event => { if (event.target === sampleModal) closeSample(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeSample(); });
+    sampleForm.addEventListener('submit', async event => {
+      event.preventDefault(); formStatus.textContent = ''; submitButton.disabled = true; submitButton.textContent = '접수 중...';
+      const body = Object.fromEntries(new FormData(sampleForm).entries());
+      body.consent = body.consent === 'on';
+      try {
+        const response = await fetch('/api/sample-request', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || '접수 중 오류가 발생했습니다.');
+        sampleForm.style.display = 'none'; successBox.classList.add('show');
+      } catch (error) { formStatus.textContent = error.message || '잠시 후 다시 시도해주세요.'; }
+      finally { submitButton.disabled = false; submitButton.textContent = '샘플 신청 보내기'; }
+    });
+  </script>
+</body>
+</html>
