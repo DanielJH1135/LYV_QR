@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- LYV_QR_BUILD: logo-user-copy-formspree-v5 -->
+<!-- LYV_QR_BUILD: product-resources-v6 -->
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
@@ -171,6 +171,24 @@
       .main-grid { grid-template-columns: repeat(4, 1fr); }
       .product-name { font-size: 22px; }
     }
+    #modal .sheet { width: min(100%, 760px); }
+    #modal .sheet-top { position: sticky; top: -10px; background: rgba(255,255,255,.96); backdrop-filter: blur(14px); padding: 12px 0; z-index: 3; }
+    #modal .sheet-type { margin-top: 7px; }
+    .detail-summary { margin: 18px 0; font-size: 16px; }
+    .spec-list { margin: 18px 0; }
+    .spec-list > div { display: grid; grid-template-columns: 95px minmax(0,1fr); gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .spec-list dt { color: var(--muted); font-size: 14px; }
+    .spec-list dd { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
+    .resource-note { color: var(--muted); font-size: 14px; }
+    .scan-item { margin: 22px 0; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+    .scan-item figcaption { margin-bottom: 10px; font-weight: 800; font-size: 15px; }
+    .scan-item img { display: block; width: 100%; height: auto; background: white; border-radius: 8px; }
+    .scan-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .scan-actions a, .resource-link { display: flex; align-items: center; justify-content: center; padding: 10px; text-align: center; }
+    .resource-menu { display: grid; gap: 10px; margin: 20px 0; }
+    #modal .close, .mini-card button { min-height: 38px; padding: 7px 10px; border: 1px solid rgba(145,157,159,.3); background: rgba(255,255,255,.56); box-shadow: inset 0 1px 0 rgba(255,255,255,.86), 0 7px 18px rgba(35,35,35,.05); backdrop-filter: blur(12px); border-radius: 12px; }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--grey-deep); outline-offset: 3px; }
+    @media (max-width: 719px) { #modal .sheet { max-height: 90dvh; } }
   </style>
 </head>
 <body>
@@ -217,7 +235,7 @@
           </article>
           <article class="product-card">
             <div class="visual"><img src="y-solution.png" alt="이브아르 와이솔루션 360, 540, 720 제품" /><span class="category">PREMIUM HA FILLER</span></div>
-            <div class="product-body"><h3 class="product-name">YVOIRE<br />Y-SOLUTION</h3><p class="product-type">Premium HA Dermal Filler</p><p class="product-copy">360, 540, 720으로 구성된 이브아르 와이솔루션 라인업입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE Y-SOLUTION">제품소개</button><button class="card-button filled" data-contact="Y-SOLUTION 자료">자료 요청</button><button class="card-button sample" data-contact="Y-SOLUTION 샘플 신청">샘플 신청</button></div></div>
+            <div class="product-body"><h3 class="product-name">YVOIRE<br />Y-SOLUTION</h3><p class="product-type">Premium HA Dermal Filler</p><p class="product-copy">와이솔루션 360·540·720에서 루비안 글로우·아크·엣지로 변경 예정입니다.</p><div class="card-actions"><button class="card-button" data-product="YVOIRE Y-SOLUTION">제품소개</button><button class="card-button filled" data-contact="Y-SOLUTION 자료">자료 요청</button><button class="card-button sample" data-contact="Y-SOLUTION 샘플 신청">샘플 신청</button></div></div>
           </article>
           <article class="product-card">
             <div class="visual"><img src="bellacholine.png" alt="벨라콜린 주 제품" /><span class="category">DEOXYCHOLIC ACID</span></div>
@@ -251,7 +269,7 @@
   <nav class="bottom-bar" aria-label="빠른 연락"><button data-contact="전화">전화</button><button data-contact="자료 요청">자료 요청</button><button class="accent" data-contact="샘플 신청">샘플 신청</button></nav>
 
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="sheet"><div class="handle"></div><div class="sheet-top"><div><h3 id="modal-title">제품명</h3><div class="sheet-type">제품 상세 정보</div></div><button class="close" aria-label="닫기">✕</button></div><div class="detail-box"><strong>현재는 구조 확인용 임시 페이지입니다.</strong>실제 제품 이미지, 핵심 특징, 규격, 허가 범위 및 브로셔 자료를 전달받으면 이 영역에 제품별 내용으로 교체됩니다.</div><button class="button primary" style="width:100%" data-contact="상세 자료">이 제품 자료 요청하기</button></div>
+    <div class="sheet" tabindex="-1"><div class="handle"></div><div class="sheet-top"><div><h3 id="modal-title">제품명</h3><div class="sheet-type" id="detail-type">제품 상세 정보</div></div><button class="close" aria-label="닫기">✕</button></div><div id="product-detail"></div><a class="button submit-glass" id="detail-inquiry" href="mailto:daniel-jhlee@lyvsciences.com" style="width:100%">추가 자료 이메일 문의</a></div>
   </div>
   <div class="modal" id="sample-modal" role="dialog" aria-modal="true" aria-labelledby="sample-title">
     <div class="sheet form-sheet">
@@ -284,10 +302,116 @@
     const successBox = document.getElementById('success-box');
     let timer;
     function notify(message) { toast.textContent = message; toast.classList.add('show'); clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 2400); }
-    document.querySelectorAll('[data-product]').forEach(button => button.addEventListener('click', () => { title.textContent = button.dataset.product; modal.classList.add('open'); document.body.style.overflow = 'hidden'; }));
+    // Provided scans are preserved as-is. Product claims are not inferred from filenames.
+    const catalog = {
+      ULTRACOL: {
+        name: 'ULTRACOL · 울트라콜', type: 'PDO Biostimulator',
+        summary: '울트라콜과 울트라콜 Boost의 제품 규격 및 제공된 브로셔를 확인하실 수 있습니다.',
+        specs: [['라인업', '울트라콜 200 mg/vial · 울트라콜 Boost 100 mg/vial'], ['품목', '조직수복용재료 · 4등급'], ['보관', '30℃ 이하 실온, 냉동 보관 금지'], ['유효기간', '제조일로부터 2년']],
+        scans: [['ultracol-overview.png','울트라콜 · Boost 제품표'], ['ultracol-cover.jpg','울트라콜 브로셔 표지'], ['ultracol-detail-1.jpg','울트라콜의 안전성 I'], ['ultracol-detail-2.jpg','울트라콜의 안전성 II']]
+      },
+      YVOIRE: {
+        name: 'YVOIRE · 이브아르', type: 'HA Dermal Filler',
+        summary: '이브아르 플러스 3종의 용량, 성분 및 세부 규격을 확인하세요.',
+        specs: [['라인업','클래식 플러스 · 볼륨 플러스 · 컨투어 플러스'], ['용량 / 구성','1.0 mL · 1시린지/박스'], ['성분','HA 20 mg/mL · 리도카인 0.3%'], ['보관','2~25℃, 밀봉용기, 동결 금지'], ['사용기한','제조일로부터 2년']],
+        scans: [['yvoire.png','이브아르 플러스 3종 제품표']]
+      },
+      'YVOIRE Y-SOLUTION': {
+        name: 'Y-SOLUTION → LUVYAN', type: 'Premium HA Dermal Filler · 변경 예정',
+        summary: '와이솔루션 360·540·720에서 루비안 글로우·아크·엣지로 변경 예정입니다. 아래 규격과 자료는 변경 예정인 루비안 기준이며, 공급 시점 및 신청 가능한 제품은 담당자에게 문의해주세요.',
+        specs: [['라인업','글로우 · 아크 · 엣지'], ['용량 / 구성','1.0 mL · 1시린지/박스'], ['HA 함량','글로우 12 mg/mL · 아크/엣지 20 mg/mL'], ['리도카인','0.3%'], ['보관','2~25℃, 밀봉용기, 동결 금지'], ['사용기한','제조일로부터 2년']],
+        scans: [['luvyan.png','루비안 글로우 · 아크 · 엣지 제품표']]
+      },
+      BELLACHOLINE: {
+        name: 'BELLACHOLINE · 벨라콜린주', type: 'Deoxycholic Acid · 전문의약품',
+        summary: '제품표와 제공된 브로셔 발췌본입니다. 처방 및 사용 전 최신 제품설명서의 효능·효과와 주의사항을 확인해주세요.',
+        specs: [['주요 성분','데옥시콜산 10 mg/mL'], ['용량','2 mL/vial'], ['보관','밀봉용기, 실온 1~30℃'], ['사용기한','제조일로부터 36개월']],
+        scans: [['bellacholine-overview.png','벨라콜린주 제품표'], ['bellacholine-cover.jpg','벨라콜린 브로셔 표지'], ['bellacholine-detail-1.jpg','벨라콜린 상세내용 1 · 성분 및 작용기전'], ['bellacholine-detail-2.jpg','벨라콜린 상세내용 2 · 성상 및 확인사항']]
+      },
+      KIOMER: {
+        name: 'KIOMER · 키오머', type: 'Wound Care',
+        summary: '키오머 3과 키오머 플러스의 제품 구분과 규격을 확인하세요.',
+        specs: [['라인업','키오머 3 (3등급) · 키오머 플러스 (2등급)'], ['용량 / 구성','1.0 g · 10시린지/박스'], ['주성분','키토산 · Type 1 콜라겐'], ['제조사','㈜엔도비전'], ['보관','실온 1~30℃, 직사광선을 피해 보관'], ['사용기한','제조일로부터 2년']],
+        scans: [['kiomer.png','키오머 3 · 키오머 플러스 제품표']]
+      },
+      TRIDERM: {
+        name: 'TRIDERM · 트라이덤', type: 'Medical Device',
+        summary: '고주파 전류를 사용하여 조직의 응고 등에 사용하는 기구입니다.',
+        specs: [['제품명','Ultra V Triderm · Ultra V Tri-RF'], ['모델','UM-101'], ['품목','범용전기수술기 · 3등급'], ['품목허가번호','제허 20-388호'], ['전기적 정격','AC 100~240 V · 50/60 Hz · 60 VA']],
+        scans: [['triderm.png','트라이덤 제품표']]
+      },
+      AIRSHINE: {
+        name: 'AIRSHINE · 에어샤인', type: 'Medical Device',
+        summary: '약액을 환자에게 일정량 주입할 때 사용하는 전동식 기구입니다.',
+        specs: [['제품명','Ultra V Air Shine · Air Dissector'], ['품목','전동식 의약품 주입 펌프 · 2등급'], ['품목허가번호','제인 18-4808호'], ['전기적 정격','AC 220 V · 60 Hz · 140 VA']],
+        scans: [['airshine.png','에어샤인 제품표']]
+      },
+      'PDO LIFTING THREAD': {
+        name: 'PDO LIFTING THREAD', type: 'PDO 리프팅실',
+        summary: '일반 니들 타입 5종과 캐뉼라 타입 6종을 한눈에 비교할 수 있습니다. 제품별 바늘 및 실 규격은 원본 제품표에서 확인하세요.',
+        specs: [['일반 니들','인치 · 모노 · 회오리 · 더블 트위스트 · P코그(가시)'], ['캐뉼라','슈퍼 토네이도 · 360° 스파이럴 코그 · 몰드 코그 · 엠보스 몰드 · 슈퍼 엠보스 몰드 · 옥토 트위스트']],
+        scans: [['pdo-threads.png','PDO 리프팅실 · 일반 니들 및 캐뉼라 타입']]
+      }
+    };
+    const detail = document.getElementById('product-detail');
+    let detailOpener;
+    function element(tag, text, className) {
+      const node = document.createElement(tag);
+      if (text) node.textContent = text;
+      if (className) node.className = className;
+      return node;
+    }
+    function showDetail() {
+      if (!modal.classList.contains('open')) detailOpener = document.activeElement;
+      modal.classList.add('open'); document.body.style.overflow = 'hidden';
+      modal.querySelector('.sheet').scrollTop = 0;
+      modal.querySelector('.close').focus();
+    }
+    function openProduct(key) {
+      const item = catalog[key];
+      if (!item) return;
+      title.textContent = item.name;
+      document.getElementById('detail-type').textContent = item.type;
+      detail.replaceChildren(element('p', item.summary, 'detail-summary'));
+      const specs = element('dl', '', 'spec-list');
+      item.specs.forEach(([label, value]) => { const row = element('div'); row.append(element('dt', label), element('dd', value)); specs.append(row); });
+      detail.append(specs);
+      if (item.related) {
+        const related = element('button', '루비안 3종 자료 보기', 'card-button resource-link');
+        related.type = 'button'; related.addEventListener('click', () => openProduct(item.related)); detail.append(related);
+      }
+      if (item.scans.length) {
+        detail.append(element('h4', '제품 자료'), element('p', '제공된 스캔본입니다. 작은 글씨는 원본 확대 보기로 확인해주세요. 브로셔는 전달받은 페이지로 구성되어 있습니다.', 'resource-note'));
+        item.scans.forEach(([file, label]) => {
+          const path = 'resources/' + file;
+          const figure = element('figure', '', 'scan-item');
+          const preview = element('a'); preview.href = path; preview.target = '_blank'; preview.rel = 'noopener'; preview.setAttribute('aria-label', label + ' 원본 확대 보기');
+          const img = element('img'); img.src = path; img.alt = label + ' 스캔본'; img.loading = 'lazy'; img.decoding = 'async';
+          preview.append(img);
+          const actions = element('div', '', 'scan-actions');
+          const open = element('a', '원본 확대 보기', 'card-button'); open.href = path; open.target = '_blank'; open.rel = 'noopener';
+          const download = element('a', '이미지 다운로드', 'card-button'); download.href = path; download.download = file;
+          actions.append(open, download); figure.append(element('figcaption', label), preview, actions); detail.append(figure);
+        });
+        detail.append(element('p', '제품 정보는 제공 자료 기준입니다. 실제 사용 전 최신 제품설명서와 사용상의 주의사항을 확인해주세요.', 'resource-note'));
+      }
+      document.getElementById('detail-inquiry').href = 'mailto:daniel-jhlee@lyvsciences.com?subject=' + encodeURIComponent('[제품 자료 문의] ' + item.name);
+      showDetail();
+    }
+    function openResources() {
+      title.textContent = '제품 자료'; document.getElementById('detail-type').textContent = '제품별 스캔본 · 상세자료';
+      detail.replaceChildren(); const menu = element('div', '', 'resource-menu');
+      Object.entries(catalog).forEach(([key, item]) => {
+        const button = element('button', item.name + (item.scans.length ? ' · 자료 ' + item.scans.length + '개' : ' · 자료 문의'), 'card-button resource-link');
+        button.type = 'button'; button.addEventListener('click', () => openProduct(key)); menu.append(button);
+      });
+      detail.append(menu); document.getElementById('detail-inquiry').href = 'mailto:daniel-jhlee@lyvsciences.com?subject=' + encodeURIComponent('제품 자료 문의'); showDetail();
+    }
+    document.querySelectorAll('[data-product]').forEach(button => button.addEventListener('click', () => openProduct(button.dataset.product)));
     function openSample(product) {
       sampleForm.reset(); successBox.classList.remove('show'); sampleForm.style.display = 'grid'; formStatus.textContent = '';
-      if (product) productField.value = product;
+      const selected = product === 'Y-SOLUTION' ? 'YVOIRE Y-SOLUTION' : product;
+      if (Array.from(productField.options).some(option => option.value === selected)) productField.value = selected;
       sampleModal.classList.add('open'); document.body.style.overflow = 'hidden';
     }
     function saveContact() {
@@ -314,11 +438,29 @@
       if (action === '전화') { window.location.href = 'tel:01080400296'; return; }
       if (action === '문자') { window.location.href = 'sms:01080400296'; return; }
       if (action === '저장' || action === '명함') { saveContact(); return; }
+      if (action.includes('자료')) {
+        const key = action.replace(' 자료', '');
+        if (catalog[key]) openProduct(key);
+        else if (key === 'Y-SOLUTION') openProduct('YVOIRE Y-SOLUTION');
+        else openResources();
+        return;
+      }
       notify(action + ' 기능을 준비 중입니다.');
     }));
-    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    function closeModal() {
+      const wasOpen = modal.classList.contains('open');
+      modal.classList.remove('open'); if (!sampleModal.classList.contains('open')) document.body.style.overflow = '';
+      if (wasOpen && detailOpener) detailOpener.focus();
+    }
     document.querySelector('.close').addEventListener('click', closeModal);
     modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+    modal.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const focusable = [...modal.querySelectorAll('button, a[href], [tabindex="0"]')];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
     document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
     function closeSample() { sampleModal.classList.remove('open'); document.body.style.overflow = ''; }
     document.querySelectorAll('.sample-close').forEach(button => button.addEventListener('click', closeSample));
